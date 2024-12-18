@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+{% load static %}
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>watch | Landing, Ecommerce &amp; Business Templatee</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="{% static 'assets/css/theme.css' %}" rel="stylesheet" />
+
+  </head>
+  <style>
+    /* Account Button Default */
+  .account-btn {
+    background-color: transparent;
+    color: #B98F7D; /* Matches the price color */
+    border: 2px solid #B98F7D; /* Matches the price color */
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Account Button Hover */
+  .account-btn:hover {
+    background-color: #B98F7D;
+    color: #fff; /* White text on hover */
+    border-color: #B98F7D;
+  }
+
+
+  .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+ /* Custom styles for the product grid */
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 1rem;
+        }
+
+        .product-card {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-to-cart {
+            background-color: #ffd700;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .add-to-cart:hover {
+            background-color: #ffc107;
+            color: #fff;
+        }
+       /* General Styles */
+        .add-to-cart {
+        background-color: transparent;
+        border: 2px solid currentColor; /* Matches the color of the price */
+        color: inherit;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Hover Effect on Button */
+        .add-to-cart:hover {
+        background-color: currentColor;
+        color: #000;
+        border-color: currentColor;
+        }
+
+        /* Show Button on Hover */
+        .card:hover .add-to-cart {
+        display: block;
+        margin-top: 10px; /* Adds spacing between button and text */
+        }
+
+        /* Hover Effect for Card */
+        .card:hover {
+        transform: scale(1.05); /* Slight zoom-in effect */
+        transition: transform 0.3s ease;
+        }
+
+
+        /* Add to Cart Button */
+        .add-to-cart {
+        background-color: transparent;
+        color: #B98F7D; /* Matches the price color */
+        border: 2px solid #B98F7D; /* Matches the price color */
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        opacity: 0; /* Hidden by default */
+        transform: translateY(10px); /* Slide effect */
+        pointer-events: none; /* Prevent interaction when hidden */
+        }
+
+        .add-to-cart:hover {
+        background-color: #B98F7D;
+        color: #fff; /* White text on hover */
+        border-color: #B98F7D;
+        }
+
+        /* Card Hover Effect */
+        .card:hover .add-to-cart {
+        opacity: 1; /* Show button */
+        transform: translateY(0); /* Reset slide effect */
+        pointer-events: auto; /* Enable interaction */
+        }
+
+    .account-btn {
+    background-color: transparent;
+    color: #B98F7D; /* Matches the price color */
+    border: 2px solid #B98F7D; /* Matches the price color */
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Account Button Hover */
+  .account-btn:hover {
+    background-color: #B98F7D;
+    color: #fff; /* White text on hover */
+    border-color: #B98F7D;
+  }
+
+  .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+  /* Custom adjustment for the header */
+        .main-header {
+            margin-top: 6rem; /* Increased from 2rem to 4rem */
+        }
+        .account-btn {
+        background-color: transparent;
+        color: #B98F7D; /* Matches the price color */
+        border: 2px solid #B98F7D; /* Matches the price color */
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        }
+
+    /* Account Button Hover */
+    .account-btn:hover {
+        background-color: #B98F7D;
+        color: #fff; /* White text on hover */
+        border-color: #B98F7D;
+    }
+
+    .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+ /* Custom adjustment for the header */
+    .main-header {
+  margin-top: 2rem; /* Decreased from 7rem to 2rem */
+  }
+    .account-btn {
+    background-color: transparent;
+    color: #B98F7D; /* Matches the price color */
+    border: 2px solid #B98F7D; /* Matches the price color */
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    }
+
+/* Account Button Hover */
+.account-btn:hover {
+    background-color: #B98F7D;
+    color: #fff; /* White text on hover */
+    border-color: #B98F7D;
+}
+
+    /* Adjust My Account header position */
+    h1.text-center.mb-4 {
+        margin-top: 50px; /* Adjust this value as needed to move it down */
+    }
+
+    /* Adjust Create Account button position */
+    .col-md-6 a.btn.btn-primary.w-100 {
+        margin-top: 100px; /* Adjust this value as needed to move it down */
+    }
+
+    .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+/* Custom adjustment for the header */
+        .main-header {
+            margin-top: 6rem; /* Increased from 2rem to 4rem */
+        }
+        .account-btn {
+        background-color: transparent;
+        color: #B98F7D; /* Matches the price color */
+        border: 2px solid #B98F7D; /* Matches the price color */
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        }
+
+    /* Account Button Hover */
+    .account-btn:hover {
+        background-color: #B98F7D;
+        color: #fff; /* White text on hover */
+        border-color: #B98F7D;
+    }
+
+    .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+
+body {
+            background-color: #080808;
+            font-family: Arial, sans-serif;
+        }
+        .reset-container {
+            max-width: 400px;
+            margin: 167px auto;
+            padding: 20px;
+            background-color: rgb(6, 6, 6);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .reset-container h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .reset-container label {
+            font-weight: bold;
+        }
+        .reset-container button {
+            width: 100%;
+        }
+        .account-btn {
+    background-color: transparent;
+    color: #B98F7D; /* Matches the price color */
+    border: 2px solid #B98F7D; /* Matches the price color */
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    }
+
+/* Account Button Hover */
+.account-btn:hover {
+    background-color: #B98F7D;
+    color: #fff; /* White text on hover */
+    border-color: #B98F7D;
+}
+
+    /* Adjust My Account header position */
+    h1.text-center.mb-4 {
+        margin-top: 50px; /* Adjust this value as needed to move it down */
+    }
+
+    /* Adjust Create Account button position */
+    .col-md-6 a.btn.btn-primary.w-100 {
+        margin-top: 100px; /* Adjust this value as needed to move it down */
+    }
+
+    .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+  </style>
+
+  <body>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container">
+          <a class="navbar-brand d-inline-flex" href="{% url 'home' %}">
+            <span class="text-light fs-2 fw-bold ms-2">Watch</span>
+          </a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item px-2"><a class="nav-link fw-bold active" aria-current="page" href="#collections">WATCHES</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="{% url 'product_list' %}">STORE</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="#contact">CONTACT</a></li>
+            </ul>
+            <form class="d-flex align-items-center">
+              <div class="me-4">
+                <a class="text-primary" href="#!">
+<!--                  <svg class="feather feather-phone-call" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>-->
+<!--                  </svg>-->
+                </a>
+              </div>
+<!--              <div class="me-4 text-light fw-bold">1 (800) 862 6772</div>-->
+
+                <div class="ms-auto">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                             <div class="me-4">
+                    <a href="{% url 'login' %}" class="btn account-btn">MY ACCOUNT</a>
+                  </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+              <div>
+                <a href="{% url 'cart_view' %}" class="button">
+                  <svg viewBox="0 0 16 16" class="bi bi-cart-check" height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"></path>
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                  </svg>
+                  <p class="text"> My cart</p>
+                </a>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+{% block content %} {% endblock content %}
+
+
+
+
+      <!-- ============================================-->
+      <!-- <section> begin ============================-->
+      <section class="py-0 pt-7" id="contact">
+
+        <div class="container">
+          <div class="row">
+            <div class="col-6 col-sm-4 col-xl-3 mb-3">
+              <h4 class="lh-lg fw-bold text-light">WATCH</h4>
+            </div>
+            <div class="col-6 col-sm-4 col-xl-3 mb-3">
+              <h5 class="lh-lg fw-bold text-light">MENU</h5>
+              <ul class="list-unstyled mb-md-4 mb-lg-0">
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Shipping Info</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Refunds</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">How to Order</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">How to Track</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Size Guides</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-sm-4 col-xl-3 mb-3">
+              <h5 class="mb-5"></h5>
+              <ul class="list-unstyled mb-md-4 mb-lg-0">
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Contact Us</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">my account</a></li>
+              </ul>
+            </div>
+            <div class="col-12 col-xl-3">
+              <h5 class="lh-lg fw-bold text-light text-uppercase">Signup For our Latest News</h5>
+              <div class="row input-group-icon mb-5">
+                <div class="col-12">
+                  <form class="row row-cols-lg-auto g-0 align-items-center">
+                    <div class="col-8 col-lg-9">
+                      <label class="visually-hidden" for="colFormLabel">Username</label>
+                      <div class="input-group">
+                        <input class="rounded-end-0 form-control" id="colFormLabel" type="email" placeholder="email address" />
+                      </div>
+                    </div>
+                    <div class="col-4 col-lg-3">
+                      <button class="btn btn-primary rounded-start-0" type="submit">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-bottom border-700"></div>
+          <div class="row flex-center my-3">
+            <div class="col-md-6 order-1 order-md-0">
+
+            </div>
+            <div class="col-md-6">
+              <div class="text-center text-md-end"><a href="#!"><span class="me-4" data-feather="facebook"></span></a><a href="#!"> <span class="me-4" data-feather="instagram"></span></a><a href="#!"> <span class="me-4" data-feather="youtube"></span></a><a href="#!"> <span class="me-4" data-feather="twitter"></span></a></div>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+
+      </section>
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+
+
+
+
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="{% static 'vendors/@popperjs/popper.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendors/is/is.min.js' %}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="{% static 'vendors/feather-icons/feather.min.js' %}"></script>
+    <script>
+      feather.replace();
+    </script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>-->
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
+  </body>
+
+</html>

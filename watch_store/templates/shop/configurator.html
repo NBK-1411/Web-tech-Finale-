@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Customization</title>
+
+    <!-- CSS -->
+
+
+    <!-- Additional CSS from watches.html -->
+    <link href="{% static 'assets/css/theme.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/theme.css' %}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;700&amp;display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}">
+    <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}">
+    <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+
+
+        main {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        #watch-preview {
+            width: 300px;
+            height: 300px;
+            background: #000000;
+            border: 1px solid #ddd;
+            position:relative;
+            top:150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #watch-preview div {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #component-navigation {
+            width: 600px;
+        }
+
+        .component-section {
+            display: none;
+        }
+
+        .component-section.active {
+            display: block;
+        }
+
+        .thumbnail-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .thumbnail-slider .component-item {
+            flex: 0 0 auto;
+            width: 100px;
+            border: 1px solid #ddd;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .thumbnail-slider .component-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .thumbnail-slider .component-item.selected {
+            border: 2px solid #000;
+        }
+
+        #price-summary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .navigation-buttons button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .account-btn {
+        background-color: transparent;
+        color: #B98F7D; /* Matches the price color */
+        border: 2px solid #B98F7D; /* Matches the price color */
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        }
+
+    /* Account Button Hover */
+    .account-btn:hover {
+        background-color: #B98F7D;
+        color: #fff; /* White text on hover */
+        border-color: #B98F7D;
+    }
+
+    .button {
+  display: inline-flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Center content horizontally */
+  gap: 0.2rem; /* Reduce space between icon and text */
+  padding: 4px 8px; /* Smaller padding for reduced button size */
+  border: 1.5px solid #d3a898; /* Thin light pink border */
+  background: transparent; /* Transparent background */
+  color: #d3a898; /* Text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px; /* Smaller font size */
+  line-height: 1; /* Tighter line height for better alignment */
+  border-radius: 4px; /* Adjust border radius for proportions */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.button svg {
+  fill: #d3a898; /* Match icon color with text */
+  width: 14px; /* Smaller icon width */
+  height: 14px; /* Smaller icon height */
+  margin-bottom: -1px; /* Align icon vertically with text */
+  transition: fill 0.3s ease;
+}
+
+.button:hover {
+  background: #d3a898; /* Pink background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.button:hover svg {
+  fill: #ffffff; /* White icon on hover */
+}
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container">
+          <a class="navbar-brand d-inline-flex" href="{% url 'home' %}">
+            <span class="text-light fs-2 fw-bold ms-2">Watch</span>
+          </a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item px-2"><a class="nav-link fw-bold active" aria-current="page" href="#collections">WATCHES</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="{% url 'product_list' %}">STORE</a></li>
+              <li class="nav-item px-2"><a class="nav-link fw-bold" href="#contact">CONTACT</a></li>
+            </ul>
+            <form class="d-flex align-items-center">
+              <div class="me-4">
+                <a class="text-primary" href="#!">
+<!--                  <svg class="feather feather-phone-call" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">-->
+<!--                    <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>-->
+<!--                  </svg>-->
+                </a>
+              </div>
+<!--              <div class="me-4 text-light fw-bold">1 (800) 862 6772</div>-->
+
+                <div class="ms-auto">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                             <div class="me-4">
+                    <a href="{% url 'login' %}" class="btn account-btn">MY ACCOUNT</a>
+                  </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+              <div>
+                <button class="button">
+                  <svg viewBox="0 0 16 16" class="bi bi-cart-check" height="24" width="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"></path>
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                  </svg>
+                  <p class="text"> My cart</p>
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+
+
+    <main class="container mt-5">
+        <!-- Watch Preview -->
+        <section id="watch-preview">
+            <div id="watch-case"></div>
+            <div id="watch-dial"></div>
+            <div id="watch-hands"></div>
+            <div id="watch-strap"></div>
+            <div id="watch-bezel"></div>
+            <div id="watch-secondhand"></div>
+        </section>
+
+        <!-- Component Navigation -->
+        <section id="component-navigation">
+            <div class="component-section active" data-component="case">
+                <h2>Select a Case</h2>
+                <div class="thumbnail-slider" id="case-options"></div>
+            </div>
+            <div class="component-section" data-component="dial">
+                <h2>Select a Dial</h2>
+                <div class="thumbnail-slider" id="dial-options"></div>
+            </div>
+            <div class="component-section" data-component="hands">
+                <h2>Select Hands</h2>
+                <div class="thumbnail-slider" id="hands-options"></div>
+            </div>
+            <div class="component-section" data-component="strap">
+                <h2>Select a Strap</h2>
+                <div class="thumbnail-slider" id="strap-options"></div>
+            </div>
+            <div class="component-section" data-component="bezel">
+                <h2>Select a Bezel</h2>
+                <div class="thumbnail-slider" id="bezel-options"></div>
+            </div>
+            <div class="component-section" data-component="secondhand">
+                <h2>Select a Second Hand</h2>
+                <div class="thumbnail-slider" id="secondhand-options"></div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="prev-button" disabled>Previous</button>
+                <button id="next-button">Next</button>
+            </div>
+
+            <div id="price-summary">
+                Total Price: $<span id="total-price">0.00</span>
+            </div>
+            <!-- Checkout Button -->
+            <div class="checkout-section">
+                <button id="checkout-button" class="btn btn-primary">Proceed to Checkout</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center mt-5">
+        <!-- <section> begin ============================-->
+      <section class="py-0 pt-7" id="contact">
+
+        <div class="container">
+          <div class="row">
+            <div class="col-6 col-sm-4 col-xl-3 mb-3">
+              <h4 class="lh-lg fw-bold text-light">WATCH</h4>
+            </div>
+            <div class="col-6 col-sm-4 col-xl-3 mb-3">
+              <h5 class="lh-lg fw-bold text-light">MENU</h5>
+              <ul class="list-unstyled mb-md-4 mb-lg-0">
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Shipping Info</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Refunds</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">How to Order</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">How to Track</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Size Guides</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-sm-4 col-xl-3 mb-3">
+              <h5 class="mb-5"></h5>
+              <ul class="list-unstyled mb-md-4 mb-lg-0">
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">Contact Us</a></li>
+                <li class="lh-lg"><a class="text-800 text-decoration-none text-uppercase fw-bold" href="#!">my account</a></li>
+              </ul>
+            </div>
+            <div class="col-12 col-xl-3">
+              <h5 class="lh-lg fw-bold text-light text-uppercase">Signup For our Latest News</h5>
+              <div class="row input-group-icon mb-5">
+                <div class="col-12">
+                  <form class="row row-cols-lg-auto g-0 align-items-center">
+                    <div class="col-8 col-lg-9">
+                      <label class="visually-hidden" for="colFormLabel">Username</label>
+                      <div class="input-group">
+                        <input class="rounded-end-0 form-control" id="colFormLabel" type="email" placeholder="email address" />
+                      </div>
+                    </div>
+                    <div class="col-4 col-lg-3">
+                      <button class="btn btn-primary rounded-start-0" type="submit">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-bottom border-700"></div>
+          <div class="row flex-center my-3">
+            <div class="col-md-6 order-1 order-md-0">
+
+            </div>
+            <div class="col-md-6">
+              <div class="text-center text-md-end"><a href="#!"><span class="me-4" data-feather="facebook"></span></a><a href="#!"> <span class="me-4" data-feather="instagram"></span></a><a href="#!"> <span class="me-4" data-feather="youtube"></span></a><a href="#!"> <span class="me-4" data-feather="twitter"></span></a></div>
+            </div>
+          </div>
+        </div>
+        <!-- end of .container-->
+      </section>
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+        // Data for components and pricing
+        const staticPath = "http://127.0.0.1:8000/static/assets/images/";
+        const components = {
+            case: ["Case3.jpg.png", "Case373.jpg-Photoroom.png", "Case6.jpg.png","Case4.png","Case.jpg","566-texture.jpg-2.png","579-texture.jpg.png","598-texture.jpg.png","605-texture.jpg.png","606-texture.jpg-2.png","734-texture.jpg-2.png","Case373.jpg-Photoroom.png","Case4556.jpg-Photoroom.png","Case2737.jpg-Photoroom.png","Case373.jpg-Photoroom.png"],
+            dial: ["Dial56.jpg-Photoroom.png", "Dial5858.jpg.png", "Dial69.jpg.png","513-texture.jpg.png","Dial3838.jpg-Photoroom.png","492-texture-Photoroom.png","507-texture.jpg.png","509-texture.jpg.png","635-texture.jpg.png","632-texture.jpg.png","631-texture.jpg.png","697-texture.jpg.png","669-texture.jpg.png","707-texture.jpg.png","705-texture.jpg.png","798-texture.jpg-Photoroom.png","799-texture.jpg-Photoroom.png","806-texture.jpg-Photoroom.png","802-texture.jpg.png"],
+            hands: ["Hands10.jpg.png", "Hands6.jpg.png", "Hands7.jpg.png","Hands90.jpg.png","Hands15.jpg.png","Hands14.jpg.png","Hands13.jpg.png","Hands12.jpg.png","Hands11.jpg.png","Hands8.jpg.png","Hands7.jpg.png","Hands3.jpg.png","Hands5.jpg.png",,,],
+            strap: ["Strap9.jpg.png", "Strap2345.jpg.png", "Strap1.jpg.png","Stap19.jpg.png","Strap1.jpg.png","Strap2.jpg.png","Strap3.jpg.png","Strap4.jpg.png","Strap5.jpg.png","Strap7.jpg.png","Strap8.jpg.png","Strap11.jpg.png","Strap20.jpg.png","Strap67.jpg.png","806-texture.jpg-Photoroom.png",],
+            bezel: ["Bezel3.jpg.png", "Bezel858.jpg.png", "Bezel77.jpg.png","701-texture.jpg.png","703-texture.jpg-2.png","703-texture.jpg.png","664-texture.jpg.png","519-texture.jpg.png","518-texture.jpg.png","506-texture.jpg.png","505-texture.jpg.png"],
+            secondhand: ["Second hand20.jpg.png", "Second hand1.jpg.png", "Second hand26.jpg.png","Second hand23.jpg.png","Second hand21.jpg.png","Second hand20.jpg.png","Second hand19.jpg.png","Second hand8.jpg.png","Second hand7.jpg.png","Second hand6.jpg.png","Second hand5.jpg.png","Second hand4.jpg.png","Second hand3.jpg.png","Second hand2.jpg.png","Second hand1.jpg.png","Second hand.jpg.png"]
+        };
+
+        const prices = {
+            case: 50,
+            dial: 30,
+            hands: 20,
+            strap: 25,
+            bezel: 40,
+            secondhand: 15
+        };
+
+        const previewElements = {
+            case: document.getElementById("watch-case"),
+            dial: document.getElementById("watch-dial"),
+            hands: document.getElementById("watch-hands"),
+            strap: document.getElementById("watch-strap"),
+            bezel: document.getElementById("watch-bezel"),
+            secondhand: document.getElementById("watch-secondhand")
+        };
+
+        let currentSectionIndex = 0;
+        const sections = document.querySelectorAll(".component-section");
+        const totalPriceElement = document.getElementById("total-price");
+        const prevButton = document.getElementById("prev-button");
+        const nextButton = document.getElementById("next-button");
+
+        // Populate component options
+        Object.keys(components).forEach(type => {
+            const container = document.getElementById(`${type}-options`);
+            components[type].forEach(image => {
+                const item = document.createElement("div");
+                item.className = "component-item";
+                item.innerHTML = `<img src="http://127.0.0.1:8000/static/assets/images/${image}" alt="${type}">`;
+                item.addEventListener("click", () => {
+                    updatePreview(type, image);
+                    updatePrice();
+                    highlightSelected(container, item);
+                });
+                container.appendChild(item);
+            });
+        });
+
+        // Update preview
+        function updatePreview(type, image) {
+            previewElements[type].style.backgroundImage = `url('http://127.0.0.1:8000/static/assets/images/${image}')`;
+            if (type === "dial") {
+            previewElements[type].style.width = "37%";
+            previewElements[type].style.marginRight = "6px";
+            previewElements[type].style.zIndex = "80";
+
+        } else if (type === "hands") {
+            previewElements[type].style.width = "20%";
+            previewElements[type].style.marginBottom = "28px";
+            previewElements[type].style.marginRight = "2px";
+            previewElements[type].style.zIndex = "80";
+
+        } else if (type === "bezel") {
+            previewElements[type].style.width = "43%";
+            previewElements[type].style.marginRight = "3px";
+            previewElements[type].style.marginBottom = "3px";
+            previewElements[type].style.zIndex = "80";
+        } else if (type === "case") {
+            previewElements[type].style.zIndex = "80";
+            previewElements[type].style.width = "57%";
+
+        } else if (type === "secondhand") {
+            previewElements[type].style.width = "44%";
+            previewElements[type].style.marginRight = "41px";
+            previewElements[type].style.marginTop = "10px";
+            previewElements[type].style.zIndex = "80";
+
+        }
+        }
+
+        // Update price
+        function updatePrice() {
+            let total = 0;
+            Object.keys(previewElements).forEach(type => {
+                const element = previewElements[type];
+                if (element.style.backgroundImage) {
+                    total += prices[type];
+                }
+            });
+            totalPriceElement.textContent = total.toFixed(2);
+        }
+
+        // Highlight selected item
+        function highlightSelected(container, selectedItem) {
+            const items = container.querySelectorAll(".component-item");
+            items.forEach(item => item.classList.remove("selected"));
+            selectedItem.classList.add("selected");
+        }
+
+        // Navigation
+        function showSection(index) {
+            sections.forEach((section, i) => {
+                section.classList.toggle("active", i === index);
+            });
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === sections.length - 1;
+        }
+
+        prevButton.addEventListener("click", () => {
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                showSection(currentSectionIndex);
+            }
+        });
+
+        nextButton.addEventListener("click", () => {
+            if (currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                showSection(currentSectionIndex);
+            }
+        });
+
+        showSection(currentSectionIndex);
+    </script>
+
+
+    <script src="{% static 'js/CustomWatch_Debugged.js' %}"></script>
+</body>
+</html>

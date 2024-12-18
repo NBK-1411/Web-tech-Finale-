@@ -1,0 +1,24 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">My Profile</h1>
+    <div class="card mx-auto rounded-3 shadow" style="max-width: 600px;">
+        <div class="card-body">
+            <h4 class="card-title text-center fw-bold text-dark">
+                Welcome, <strong>{{ user.username }}!</strong>
+            </h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Username:</strong> {{ user.username }}</li>
+                <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+                <li class="list-group-item"><strong>First Name:</strong> {{ user.first_name|default:"Not Provided" }}</li>
+                <li class="list-group-item"><strong>Last Name:</strong> {{ user.last_name|default:"Not Provided" }}</li>
+                <li class="list-group-item"><strong>Date Joined:</strong> {{ user.date_joined }}</li>
+            </ul>
+            <div class="text-center mt-4">
+                <a href="{% url 'logout' %}" class="btn btn-danger rounded-pill">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

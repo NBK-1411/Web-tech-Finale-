@@ -1,0 +1,9 @@
+<h1>Watch Store</h1>
+<ul>
+  {% for watch in watches %}
+    <li>
+      <img src="{{ watch.image.url }}" alt="{{ watch.name }}" width="100">
+      <a href="{% url 'product_detail' watch.pk %}">{{ watch.name }}</a> - ${{ watch.price }}
+    </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,72 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="container mt-5">
+    <h1 class="text-center mb-4 main-header">Create an Account</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group mb-3">
+            <label for="username">Username <span class="text-danger">*</span></label>
+            <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="email">Email <span class="text-danger">*</span></label>
+            <input type="email" id="email" name="email" class="form-control" required>
+            {% if form.email.errors %}
+                <div class="text-danger">
+                    {% for error in form.email.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="first_name">First Name <span class="text-danger">*</span></label>
+            <input type="text" id="first_name" name="first_name" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="last_name">Last Name <span class="text-danger">*</span></label>
+            <input type="text" id="last_name" name="last_name" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="address">Address <span class="text-danger">*</span></label>
+            <input type="text" id="address" name="address" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="city">City <span class="text-danger">*</span></label>
+            <input type="text" id="city" name="city" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="state">State <span class="text-danger">*</span></label>
+            <input type="text" id="state" name="state" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="zip_code">Zip Code <span class="text-danger">*</span></label>
+            <input type="text" id="zip_code" name="zip_code" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="password1">Password <span class="text-danger">*</span></label>
+            <input type="password" id="password1" name="password1" class="form-control" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="password2">Confirm Password <span class="text-danger">*</span></label>
+            <input type="password" id="password2" name="password2" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mb-3">Create Account</button>
+    </form>
+
+</main>
+{% endblock %}
+
